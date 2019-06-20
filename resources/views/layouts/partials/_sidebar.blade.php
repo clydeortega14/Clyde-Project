@@ -72,6 +72,40 @@
             </ul>
           </a>
         </li>
+
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-cogs"></i> <span>Transactions</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+
+            <ul class="treeview-menu">
+              <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-car"> </i><span> Rent a car </span>
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+
+                    <ul class="treeview-menu">
+                      <li>
+                        <a href="#">
+                          <i class="fa fa-book"></i><span> Reservation list</span>
+                        </a>
+                      </li>
+
+                      <li>
+                        <a href="{{ route('book.reservation') }}">
+                          <i class="fa fa-calendar"></i><span> Book reservation</span>
+                        </a>
+                      </li>
+                    </ul>
+                </a>
+              </li>
+            </ul>
+          </a>
+        </li>
       </ul>
     </section>
     <!-- /.sidebar -->

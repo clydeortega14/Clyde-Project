@@ -51,4 +51,8 @@ Route::middleware(['auth'])->group(function() {
 	Route::post('/user/delete/{id}', 'UsersController@destroy')->name('user.destroy');
 	Route::post('/user/update-status/{id}', 'UsersController@updateStatus')->name('user.update.status');
 
+	/* RENT CARS */
+	Route::get('/book-reservation', 'RentCarsController@showReservationForm')->name('book.reservation');
+	Route::post('/post-reservation', 'RentCarsController@postReservation')->name('post.reservation');
+
 });

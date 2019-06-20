@@ -19,6 +19,11 @@
   <link rel="stylesheet" href="/AdminLTE/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
   <!-- Daterange picker -->
   <link rel="stylesheet" href="/AdminLTE/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+
+  <!-- Full Calendar -->
+  <link rel="stylesheet" href="/AdminLTE/bower_components/fullcalendar/dist/fullcalendar.min.css">
+  <link rel="stylesheet" href="/AdminLTE/bower_components/fullcalendar/dist/fullcalendar.print.min.css" media="print">
+
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="/AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 
