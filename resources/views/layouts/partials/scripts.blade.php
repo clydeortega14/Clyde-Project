@@ -52,7 +52,6 @@
 	});
 	
 </script>
-
 @yield('custom_js')
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 {{-- <script src="/AdminLTE/dist/js/pages/dashboard.js"></script> --}}

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Car;
+use App\TourPackage;
 
-class CarsController extends Controller
+class TourPackagesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,8 @@ class CarsController extends Controller
      */
     public function index()
     {
-        $cars = Car::orderBy('created_at', 'desc')->get();
-        
-        return view('pages.cars.index')->with('cars', $cars);
+        $tourPackages = TourPackage::orderBy('created_at', 'desc')->get();
+        return view('pages.tourpackages.index')->with('tourPackages', $tourPackages);
     }
 
     /**
@@ -26,7 +25,7 @@ class CarsController extends Controller
      */
     public function create()
     {
-        return view('pages.cars.create');
+        return view('pages.tourpackages.create');
     }
 
     /**
@@ -37,9 +36,9 @@ class CarsController extends Controller
      */
     public function store(Request $request)
     {
-        Car::create($this->carDetails($request->toArray()));
+        TourPackage::create($this->tourData($request->toArray()));
 
-        return redirect()->route('cars')->with('message', 'New car was successfully created');
+        return redirect()->route('tour-packages.index')->with('message', 'New tour package has been added');
     }
 
     /**
@@ -50,8 +49,8 @@ class CarsController extends Controller
      */
     public function edit($id)
     {
-        $car = Car::findOrFail($id);
-        return view('pages.cars.edit')->with('car', $car);
+        $tour = TourPackage::findOrFail($id);
+        return view('pages.tourpackages.edit')->with('tour', $tour);
     }
 
     /**
@@ -63,8 +62,17 @@ class CarsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Car::where('id', $id)->update($this->carDetails($request->toArray()));
-        return redirect()->route('cars')->with('message', 'Car Details updated');
+        TourPackage::where('id', $id)->update($this->tourData($request->toArray()));
+
+        return redirect()->route('tour-packages.index')->with('message', 'Tour has been updated');
+    }
+    protected function tourData(Array $data){
+
+        return [
+
+            'description' => $data['description'],
+            'rate' => $data['rate']
+        ];
     }
 
     /**
@@ -75,21 +83,8 @@ class CarsController extends Controller
      */
     public function destroy($id)
     {
-        Car::where('id', $id)->delete();
-        return redirect()->route('cars')->with('message', 'Car deleted!');
-    }
+        TourPackage::where('id', $id)->delete();
 
-    protected function carDetails(Array $data)
-    {
-
-        return [
-
-            'brand' => $data['brand'],
-            'model' => $data['model'],
-            'description' => $data['description'],
-            'no_of_setters' => $data['no_of_setters'],
-            'plate_no' => $data['plate_no'],
-            'available' => true
-        ];
+        return redirect()->route('tour-packages.index')->with('message', 'Tour has been remove');
     }
 }

@@ -65,7 +65,7 @@
               </li>
 
               <li>
-                <a href="#">
+                <a href="{{ route('tour-packages.index') }}">
                   <i class="fa fa-ship"></i> <span>Tour Packages</span>
                 </a>
               </li>

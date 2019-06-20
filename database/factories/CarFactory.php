@@ -16,8 +16,9 @@ $factory->define(Car::class, function (Faker $faker) {
         
     	'brand' => $faker->randomElement($carBrands),
     	'model' => $faker->randomElement($carModels),
+    	'description' => $faker->text,
+        'no_of_setters' => $faker->randomDigitNotNull()." ".'setters',
     	'plate_no' => Str::random(5).' - '.str_limit(str_shuffle($numbers), 5, ''),
-    	'maxperson' => $faker->randomDigit,
     	'available' => $faker->boolean	
 
     ];

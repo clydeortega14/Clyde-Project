@@ -43,6 +43,9 @@ Route::middleware(['auth'])->group(function() {
 	/* DRIVERS */
 	Route::resource('drivers', 'DriversController');
 
+	/* TOUR PACKAGE */
+	Route::resource('tour-packages', 'TourPackagesController');
+
 	// AJAX
 	Route::get('/users/data', 'UsersController@usersData');
 	Route::post('/user/delete/{id}', 'UsersController@destroy')->name('user.destroy');
