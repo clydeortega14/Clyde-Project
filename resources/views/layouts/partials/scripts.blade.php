@@ -35,6 +35,7 @@
 <script src="/AdminLTE/bower_components/fastclick/lib/fastclick.js"></script>
 <!-- AdminLTE App -->
 <script src="/AdminLTE/dist/js/adminlte.min.js"></script>
+<script src="/AdminLTE/bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
 <script>
 	
 	$(function(){
@@ -52,7 +53,6 @@
 	});
 	
 </script>
-
 @yield('custom_js')
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 {{-- <script src="/AdminLTE/dist/js/pages/dashboard.js"></script> --}}

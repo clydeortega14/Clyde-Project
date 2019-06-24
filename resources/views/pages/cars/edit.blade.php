@@ -50,11 +50,22 @@
                             @enderror
                         </div>
 
-                        <div class="form-group @error('max_person') has-error @enderror">
-                            <label for="max_person">{{ __('Max Person') }}</label>
-                            <input type="number" min="1" class="form-control" id="max_person" name="max_person" value="{{ $car->maxperson}}">
+                        <div class="form-group @error('description') has-error @enderror">
+                          <label for="description">{{ __('Description') }} </label>
+                          <textarea type="text" class="form-control" id="description" name="description" placeholder="Enter Description">{{ $car->description }}</textarea>
+                        
+                            @error('description')
+                                <span class="help-block">
+                                    {{ $message }}
+                                </span>
+                            @enderror
+                        </div>
 
-                            @error('max_person')
+                        <div class="form-group @error('no_of_setters') has-error @enderror">
+                          <label for="no_of_setters">{{ __('Number of sitters') }} </label>
+                          <input type="text" class="form-control" id="no_of_setters" name="no_of_setters" value="{{ $car->no_of_setters }}" placeholder="Enter Number of sitters" required>
+                        
+                            @error('no_of_setters')
                                 <span class="help-block">
                                     {{ $message }}
                                 </span>

@@ -65,8 +65,25 @@
               </li>
 
               <li>
-                <a href="#">
+                <a href="{{ route('tour-packages.index') }}">
                   <i class="fa fa-ship"></i> <span>Tour Packages</span>
+                </a>
+              </li>
+            </ul>
+          </a>
+        </li>
+
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-cogs"></i> <span>Transactions</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+
+            <ul class="treeview-menu">
+              <li>
+                <a href="{{ route('rent.list') }}">
+                    <i class="fa fa-car"> </i><span> Rent a car </span>
                 </a>
               </li>
             </ul>

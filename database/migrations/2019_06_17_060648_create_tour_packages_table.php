@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCarsTable extends Migration
+class CreateTourPackagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,10 @@ class CreateCarsTable extends Migration
      */
     public function up()
     {
-        Schema::create('cars', function (Blueprint $table) {
+        Schema::create('tour_packages', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('brand');
-            $table->string('model')->nullable();
-            $table->text('description')->nullable();
-            $table->string('no_of_setters');
-            $table->string('plate_no');
-            $table->boolean('available');
+            $table->text('description');
+            $table->double('rate', 8, 2);
             $table->timestamps();
         });
     }
@@ -32,6 +28,6 @@ class CreateCarsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cars');
+        Schema::dropIfExists('tour_packages');
     }
 }
