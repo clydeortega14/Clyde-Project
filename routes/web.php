@@ -46,13 +46,25 @@ Route::middleware(['auth'])->group(function() {
 	/* TOUR PACKAGE */
 	Route::resource('tour-packages', 'TourPackagesController');
 
-	// AJAX
+	/* RENT CARS */
+	Route::get('/rent-list', 'RentCarsController@index')->name('rent.list');
+	Route::get('/book-reservation/{id}/edit', 'RentCarsController@edit')->name('rent-list.edit');
+	Route::get('/book-reservation', 'RentCarsController@showReservationForm')->name('book.reservation');
+
+	Route::post('/post-reservation', 'RentCarsController@postReservation')->name('post.reservation');
+	Route::post('/update-reservation/{id}', 'RentCarsController@updateReservation')->name('update.reservation');
+
+	/* AJAX REQUESTS */
+		/* for all rent a car table */
+	Route::get('/rent-list-data', 'RentCarsController@showRentData');
+
+		/* for event getting data */
+	Route::get('/event-list-data', 'RentCarsController@eventListData');
+
 	Route::get('/users/data', 'UsersController@usersData');
 	Route::post('/user/delete/{id}', 'UsersController@destroy')->name('user.destroy');
 	Route::post('/user/update-status/{id}', 'UsersController@updateStatus')->name('user.update.status');
 
-	/* RENT CARS */
-	Route::get('/book-reservation', 'RentCarsController@showReservationForm')->name('book.reservation');
-	Route::post('/post-reservation', 'RentCarsController@postReservation')->name('post.reservation');
+
 
 });

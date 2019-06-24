@@ -15,7 +15,7 @@ class rentStatusSeeder extends Seeder
         $statuses = [
         	[
         		'status' => 'hold',
-        		'class' => 'label label-primary'
+        		'class' => 'label label-warning'
         	],
         	[
         		'status' => 'reserved',
@@ -27,7 +27,7 @@ class rentStatusSeeder extends Seeder
         	],
         	[
         		'status' => 'scheduled',
-        		'class' => 'label label-warning'
+        		'class' => 'label label-primary'
         	],
         	[
         		'status' => 'returned',

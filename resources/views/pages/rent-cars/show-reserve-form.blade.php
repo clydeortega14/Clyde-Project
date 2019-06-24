@@ -9,154 +9,181 @@
 		<div class="box box-primary">
 			<div class="box-header"></div>
 
-			<form action="#" method="POST" role="form">
-				@csrf
-				<div class="box-body">
+			 <form action="{{ isset($rent) ? route('update.reservation', ['id' => $rent->id]) : route('post.reservation') }}" method="POST" role="form">
+            @csrf
 
-					{{-- CUSTOMER DETAILS --}}
-					<div class="row">
-						<div class="col-sm-6">
-							<div class="form-group @error('name') has-error @enderror">
-	                            <label for="name">{{ __('Name') }} </label>
-	                            <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" placeholder="Enter Name" required>
-	                        
-	                            @error('name')
-	                                <span class="help-block">
-	                                    {{ $message }}
-	                                </span>
-	                            @enderror
+            <div class="box-body">
 
-	                        </div>
-						</div>
+              {{-- CUSTOMER DETAILS --}}
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group @error('name') has-error @enderror">
+                        <label for="name">{{ __('Name') }} </label>
+                        <input type="text" class="form-control" id="name" name="name" value="{{ isset($rent) ? $rent->customer->name : old('name') }}" placeholder="Enter Name" required>
+                    
+                        @error('name')
+                            <span class="help-block">
+                                {{ $message }}
+                            </span>
+                        @enderror
 
-						<div class="col-sm-6">
-							<div class="form-group @error('email') has-error @enderror">
-	                            <label for="email">{{ __('Email') }}</label>
-	                            <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" placeholder="Enter Email">
+                    </div>
+                </div>
 
-	                            @error('email')
-	                                <span class="help-block">
-	                                    {{ $message }}
-	                                </span>
-	                            @enderror
-	                        </div>
-						</div>
+                <div class="col-sm-6">
+                  <div class="form-group @error('email') has-error @enderror">
+                      <label for="email">{{ __('Email') }}</label>
+                      <input type="email" class="form-control" id="email" name="email" value="{{ isset($rent) ? $rent->customer->email : old('email') }}" placeholder="Enter Email">
 
-						<div class="col-sm-12">
-							<div class="form-group @error('address') has-error @enderror">
-	                          <label for="address">{{ __('Address') }} </label>
-	                          <textarea type="text" class="form-control" id="address" name="address" placeholder="Enter Address" required>{{ old('address') }}</textarea>
-	                        
-	                            @error('address')
-	                                <span class="help-block">
-	                                    {{ $message }}
-	                                </span>
-	                            @enderror
-	                        </div>
-						</div>
+                      @error('email')
+                          <span class="help-block">
+                              {{ $message }}
+                          </span>
+                      @enderror
+                  </div>
+                </div>
 
-						<div class="col-sm-6">
-							<div class="form-group @error('contact_no') has-error @enderror">
-	                            <label for="contact_no">{{ __('Contact#') }}</label>
-	                            <input type="text" class="form-control" id="contact_no" name="contact_no" value="{{ old('contact_no') }}" placeholder="Enter Contact #" required>
+                <div class="col-sm-12">
+                  <div class="form-group @error('address') has-error @enderror">
+                    <label for="address">{{ __('Address') }} </label>
+                    <textarea type="text" class="form-control" id="address" name="address" placeholder="Enter Address" required>{{ isset($rent) ? $rent->customer->address : old('address') }}</textarea>
+                  
+                      @error('address')
+                          <span class="help-block">
+                              {{ $message }}
+                          </span>
+                      @enderror
+                  </div>
+                </div>
 
-	                            @error('contact_no')
-	                                <span class="help-block">
-	                                    {{ $message }}
-	                                </span>
-	                            @enderror
-	                        </div>
-						</div>
+                <div class="col-sm-6">
+                  <div class="form-group @error('contact_no') has-error @enderror">
+                        <label for="contact_no">{{ __('Contact#') }}</label>
+                        <input type="text" class="form-control" id="contact_no" name="contact_no" value="{{ isset($rent) ? $rent->customer->contact_number : old('contact_no') }}" placeholder="Enter Contact #" required>
 
-						<div class="col-sm-6">
-							<div class="form-group @error('nationality') has-error @enderror">
-	                            <label for="nationality">{{ __('Nationality') }}</label>
-	                            <input type="text" class="form-control" id="nationality" name="nationality" value="{{ old('nationality') }}" placeholder="Enter Nationality" required>
+                        @error('contact_no')
+                            <span class="help-block">
+                                {{ $message }}
+                            </span>
+                        @enderror
+                    </div>
+                </div>
 
-	                            @error('nationality')
-	                                <span class="help-block">
-	                                    {{ $message }}
-	                                </span>
-	                            @enderror
-	                        </div>
-						</div>
-					</div>
-					
-					{{-- FOR RESERVATION --}}
-					<div class="row">
-						<div class="col-sm-4">
-							<div class="form-group @error('car_id') has-error @enderror">
-	                            <label for="car_id">{{ __('Select Car') }} </label>
-	                            <select type="text" class="form-control" id="car_id" name="car_id" required>
-									<option>N/A</option>
-									@foreach($cars as $car)
-										<option value="{{ $car->id }}">{{ $car->model }} ( {{ $car->no_of_setters }} )</option>
-									@endforeach
-	                            </select>
-	                        
-	                            @error('car_id')
-	                                <span class="help-block">
-	                                    {{ $message }}
-	                                </span>
-	                            @enderror
+                <div class="col-sm-6">
+                  <div class="form-group @error('nationality') has-error @enderror">
+                        <label for="nationality">{{ __('Nationality') }}</label>
+                        <input type="text" class="form-control" id="nationality" name="nationality" value="{{ isset($rent) ? $rent->customer->nationality : old('nationality') }}" placeholder="Enter Nationality">
 
-	                        </div>
-						</div>
+                        @error('nationality')
+                            <span class="help-block">
+                                {{ $message }}
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+              </div>
+              
+              {{-- FOR RESERVATION --}}
+              <div class="row">
+                <div class="col-sm-4">
+                  <div class="form-group @error('car_id') has-error @enderror">
+                      <label for="car_id">{{ __('Select Car') }} </label>
+                      <select type="text" class="form-control" id="car_id" name="car_id" required>
+                      <option>N/A</option>
+                        @foreach($cars as $car)
+                          <option value="{{ $car->id }}" {{ isset($rent) && $car->id == $rent->car_id ? 'selected' : '' }}>{{ $car->model }} ( {{ $car->no_of_setters }} )</option>
+                        @endforeach
+                      </select>
+                  
+                      @error('car_id')
+                          <span class="help-block">
+                              {{ $message }}
+                          </span>
+                      @enderror
 
-						<div class="col-sm-4">
-							<div class="form-group @error('pick_up_date') has-error @enderror">
-				                <label>{{ __('Pick up date') }}</label>
+                  </div>
+                </div>
 
-				                <div class="input-group date">
-				                  <div class="input-group-addon">
-				                    <i class="fa fa-calendar"></i>
-				                  </div>
-				                  <input type="text" name="pick_up_date" class="form-control pull-right" {{ old('pick_up_date') }} id="datepicker">
-				                </div>
+                <div class="col-sm-4">
+                  <div class="form-group @error('pick_up_date') has-error @enderror">
+                    <label>{{ __('Pick up date') }}</label>
 
-				                @error('pick_up_date')
-	                                <span class="help-block">
-	                                    {{ $message }}
-	                                </span>
-	                            @enderror
-				                
-				              </div>
-						</div>
+                    <div class="input-group date">
+                      <div class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                      </div>
+                      <input type="text" name="pick_up_date" class="form-control pull-right" value="{{ isset($rent) ? $rent->pick_up_date : old('pick_up_date') }}" id="datepicker" data-date-format="yyyy-mm-dd">
+                    </div>
 
-						<div class="col-sm-4">
-							<div class="form-group @error('drop_off_date') has-error @enderror">
-				                <label>{{ __('Drop off date') }}</label>
+                      @error('pick_up_date')
+                          <span class="help-block">
+                              {{ $message }}
+                          </span>
+                      @enderror
+                    
+                  </div>
+                </div>
 
-				                <div class="input-group date">
-					                <div class="input-group-addon">
-					                    <i class="fa fa-calendar"></i>
-					                </div>
-					                <input type="text" name="drop_off_date" class="form-control pull-right" value="{{ old('drop_off_date') }}" id="datepicker2">
-				                </div>
+                <div class="col-sm-4">
+                  <div class="form-group @error('drop_off_date') has-error @enderror">
+                      <label>{{ __('Drop off date') }}</label>
 
-				             	@error('drop_off_date')
-	                                <span class="help-block">
-	                                    {{ $message }}
-	                                </span>
-	                            @enderror  
-				            </div>
-						</div>
+                      <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <input type="text" name="drop_off_date" class="form-control pull-right" value="{{ isset($rent) ? $rent->drop_off_date : old('drop_off_date') }}" id="datepicker2" data-date-format="yyyy-mm-dd">
+                      </div>
 
-						<div class="col-sm-12">
-							<div class="form-group @error('pick_up_address') has-error @enderror">
-	                          	<label for="pick_up_address">{{ __('Pick up address') }} </label>
-	                          	<textarea type="text" class="form-control" id="pick_up_address" name="pick_up_address" placeholder="Hotel/Airport/Mall" required>{{ old('pick_up_address') }}</textarea>
-	                        
-	                            @error('pick_up_address')
-	                                <span class="help-block">
-	                                    {{ $message }}
-	                                </span>
-	                            @enderror
-	                        </div>
-						</div>
-					</div>
-				</div>
-			</form>
+                      @error('drop_off_date')
+                          <span class="help-block">
+                              {{ $message }}
+                          </span>
+                      @enderror  
+                  </div>
+                </div>
+
+                <div class="col-sm-12">
+                  <div class="form-group @error('pick_up_address') has-error @enderror">
+                      <label for="pick_up_address">{{ __('Pick up address') }} </label>
+                      <textarea type="text" class="form-control" id="pick_up_address" name="pick_up_address" placeholder="Hotel/Airport/Mall" required>{{ isset($rent) ? $rent->pick_up_address : old('pick_up_address') }}</textarea>
+                  
+                      @error('pick_up_address')
+                          <span class="help-block">
+                              {{ $message }}
+                          </span>
+                      @enderror
+                  </div>
+                </div>
+                
+                @if(isset($rent))
+                  <div class="col-sm-4">
+                    <div class="form-group @error('status') has-error @enderror">
+                        <label for="status">{{ __('Status') }} </label>
+                        <select type="text" class="form-control" id="status" name="status" required>
+                        <option>N/A</option>
+                          @foreach($rentStatus as $status)
+                              <option value="{{ $status->id }}" {{ $status->id == $rent->status_id ? 'selected' : ''}}>{{ $status->status }}</option>
+                          @endforeach
+                        </select>
+                    
+                        @error('status')
+                            <span class="help-block">
+                                {{ $message }}
+                            </span>
+                        @enderror
+
+                    </div>
+                  </div>
+                @endif
+              </div>
+            </div>
+
+            <div class="box-footer">
+              <button type="submit" class="btn btn-primary btn-flat">{{ isset($rent) ? 'Update' : 'Save'}}</button>
+              <a href="{{ route('rent.list') }}" class="btn btn-danger btn-flat">Cancel</a>
+            </div>
+        </form>
 		</div>
 	</div>
 
@@ -177,13 +204,17 @@
 
 <script type="text/javascript">
 
-	$('#datepicker').datepicker({
-      	autoclose: true
-    })
+	 dPicker('#datepicker'); // PICK UP DATE
+   dPicker('#datepicker2') // DROP OFF DATE
 
-    $('#datepicker2').datepicker({
-      	autoclose: true
-    })
+    function dPicker(select)
+    {
+      $(select).datepicker({
+          autoclose: true,
+          dateFormat : 'yy-mm-dd'
+      })
+
+    }
 
     // FOR CALENDAR
 </script>
@@ -199,7 +230,7 @@
         // create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
         // it doesn't need to have a start or end
         var eventObject = {
-          title: $.trim($(this).text()) // use the element's text as the event title
+          title: $.trim($(this).text()), // use the element's text as the event title
         }
 
         // store the Event Object in the DOM element so we can get to it later
@@ -217,13 +248,15 @@
 
     init_events($('#external-events div.external-event'))
 
-    /* initialize the calendar
-     -----------------------------------------------------------------*/
+
+    /* initialize the calendar 
+    -----------------------------------------------------------------*/
     //Date for the calendar events (dummy data)
     var date = new Date()
     var d    = date.getDate(),
         m    = date.getMonth(),
         y    = date.getFullYear()
+
     $('#calendar').fullCalendar({
       header    : {
         left  : 'prev,next today',
@@ -237,116 +270,53 @@
         day  : 'day'
       },
       //Random default events
-      events    : [
-        {
-          title          : 'All Day Event',
-          start          : new Date(y, m, 1),
-          backgroundColor: '#f56954', //red
-          borderColor    : '#f56954' //red
-        },
-        {
-          title          : 'Long Event',
-          start          : new Date(y, m, d - 5),
-          end            : new Date(y, m, d - 2),
-          backgroundColor: '#f39c12', //yellow
-          borderColor    : '#f39c12' //yellow
-        },
-        {
-          title          : 'Meeting',
-          start          : new Date(y, m, d, 10, 30),
-          allDay         : false,
-          backgroundColor: '#0073b7', //Blue
-          borderColor    : '#0073b7' //Blue
-        },
-        {
-          title          : 'Lunch',
-          start          : new Date(y, m, d, 12, 0),
-          end            : new Date(y, m, d, 14, 0),
-          allDay         : false,
-          backgroundColor: '#00c0ef', //Info (aqua)
-          borderColor    : '#00c0ef' //Info (aqua)
-        },
-        {
-          title          : 'Birthday Party',
-          start          : new Date(y, m, d + 1, 19, 0),
-          end            : new Date(y, m, d + 1, 22, 30),
-          allDay         : false,
-          backgroundColor: '#00a65a', //Success (green)
-          borderColor    : '#00a65a' //Success (green)
-        },
-        {
-          title          : 'Click for Google',
-          start          : new Date(y, m, 28),
-          end            : new Date(y, m, 29),
-          url            : 'http://google.com/',
-          backgroundColor: '#3c8dbc', //Primary (light-blue)
-          borderColor    : '#3c8dbc' //Primary (light-blue)
-        }
-      ],
-      editable  : true,
-      droppable : true, // this allows things to be dropped onto the calendar !!!
-      drop      : function (date, allDay) { // this function is called when something is dropped
+      events    : ajaxEventData(),
+      eventClick: function(event, element) {
 
-        // retrieve the dropped element's stored Event Object
-        var originalEventObject = $(this).data('eventObject')
+        alert('click')
 
-        // we need to copy it, so that multiple events don't have a reference to the same object
-        var copiedEventObject = $.extend({}, originalEventObject)
-
-        // assign it the date that was reported
-        copiedEventObject.start           = date
-        copiedEventObject.allDay          = allDay
-        copiedEventObject.backgroundColor = $(this).css('background-color')
-        copiedEventObject.borderColor     = $(this).css('border-color')
-
-        // render the event on the calendar
-        // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
-        $('#calendar').fullCalendar('renderEvent', copiedEventObject, true)
-
-        // is the "remove after drop" checkbox checked?
-        if ($('#drop-remove').is(':checked')) {
-          // if so, remove the element from the "Draggable Events" list
-          $(this).remove()
-        }
-
-      }
-    })
-
-    /* ADDING EVENTS */
-    var currColor = '#3c8dbc' //Red by default
-    //Color chooser button
-    var colorChooser = $('#color-chooser-btn')
-    $('#color-chooser > li > a').click(function (e) {
-      e.preventDefault()
-      //Save color
-      currColor = $(this).css('color')
-      //Add color effect to button
-      $('#add-new-event').css({ 'background-color': currColor, 'border-color': currColor })
-    })
-    $('#add-new-event').click(function (e) {
-      e.preventDefault()
-      //Get value and make sure it is not null
-      var val = $('#new-event').val()
-      if (val.length == 0) {
-        return
+        $('#calendar').fullCalendar('updateEvent', event);
       }
 
-      //Create events
-      var event = $('<div />')
-      event.css({
-        'background-color': currColor,
-        'border-color'    : currColor,
-        'color'           : '#fff'
-      }).addClass('external-event')
-      event.html(val)
-      $('#external-events').prepend(event)
-
-      //Add draggable funtionality
-      init_events(event)
-
-      //Remove event from text input
-      $('#new-event').val('')
     })
+
+    /* Random Events function */
+
+    function ajaxEventData()
+    {
+      let myEvents = [] // declares empty array
+
+      $.ajax({
+
+        url : '/event-list-data',
+        async: false,
+        method : `GET`,
+        success: function (res) {
+
+            $.each(res, function(event, value){
+
+             let x = { //declare object variable with default properties
+
+                title          : value.customer.name,
+                start          : value.pick_up_date,
+                end            : value.drop_off_date,
+                allDay         : true,
+                classNames     : value.status.class
+              }
+
+              myEvents.push(x) // add new array
+
+            })
+        },
+        error : function(error) {
+
+          console.log(error)
+        }
+      })
+
+      return myEvents
+    }
+
   })
 </script>
 @endsection
