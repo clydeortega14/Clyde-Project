@@ -9,7 +9,7 @@ use App\Customer;
 use App\RentStatus;
 use DataTables;
 use DB;
-use App\Events\SendSms;
+use App\Service\smsSender;
 
 class RentCarsController extends Controller
 {
@@ -34,8 +34,10 @@ class RentCarsController extends Controller
             // STORE CUSTOMER
             $customer = Customer::create($this->CustomerData($request->toArray()));
 
+            $message = 'Good day'.' '.$customer->name.' '.'your reservation trip to boracay is now available ';
+
             //SEND SMS TO CLIENT
-            $this->sendSms($customer->contact_number);
+            smsSender::sendSms($customer->contact_number, $message);
             
             //STORE CAR
             RentCar::create($this->rentData($request->toArray(), $customer->id));
@@ -154,28 +156,4 @@ class RentCarsController extends Controller
     {
         return response()->json(RentCar::with(['customer', 'car', 'status'])->get());
     }
-    public function sendSms($contactNo)
-    {
-        $api_key = env('NEXMO_KEY');
-        $api_secret = env('NEXMO_SECRET');
-
-        $basic  = new \Nexmo\Client\Credentials\Basic($api_key, $api_secret);
-        $client = new \Nexmo\Client($basic);
-
-        try {
-            
-            $message = $client->message()->send([
-                
-                'to' => $contactNo,
-                'from' => 'QS Ventures',
-                'text' => 'Your reservation is atleast 2 days to hold please before the due date.'
-            ]);
-
-        } catch (Exception $e) {
-            
-            return response()->json(['message' => $e->getMessage()]);
-        }
-    }
-
-
 }

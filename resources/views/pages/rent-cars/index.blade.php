@@ -61,7 +61,7 @@
 
 			$('#rent-table').DataTable({
 
-				'paging'      : true,
+				    'paging'      : true,
 		      	'lengthChange': false,
 		      	'searching'   : true,
 		      	'ordering'    : true,

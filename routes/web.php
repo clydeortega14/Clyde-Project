@@ -65,6 +65,4 @@ Route::middleware(['auth'])->group(function() {
 	Route::post('/user/delete/{id}', 'UsersController@destroy')->name('user.destroy');
 	Route::post('/user/update-status/{id}', 'UsersController@updateStatus')->name('user.update.status');
 
-
-
 });
