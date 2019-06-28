@@ -7,6 +7,7 @@ use App\Car;
 use App\RentCar;
 use App\Customer;
 use App\RentStatus;
+use App\Destination;
 use DataTables;
 use DB;
 use App\Service\smsSender;
@@ -19,9 +20,12 @@ class RentCarsController extends Controller
     }
     public function showReservationForm()
     {
-    	$cars = Car::select(['id', 'model', 'no_of_setters'])->orderBy('created_at', 'desc')->get();
+    	$cars = Car::select(['id', 'model', 'no_of_setters'])->where('available', true)->orderBy('created_at', 'desc')->get();
+        $destinations = Destination::all();
     	
-    	return view('pages.rent-cars.show-reserve-form')->with('cars', $cars);
+    	return view('pages.rent-cars.show-reserve-form')
+            ->with('destinations', $destinations)
+            ->with('cars', $cars);
     }
     public function postReservation(Request $request)
     {
@@ -34,11 +38,14 @@ class RentCarsController extends Controller
             // STORE CUSTOMER
             $customer = Customer::create($this->CustomerData($request->toArray()));
 
-            $message = 'Good day'.' '.$customer->name.' '.'your reservation trip to boracay is now available ';
+            if($customer){
 
-            //SEND SMS TO CLIENT
-            smsSender::sendSms($customer->contact_number, $message);
-            
+                $message = 'Good day'.' '.$customer->name.' '.'your reservation trip to boracay is now available ';
+
+                //SEND SMS TO CLIENT
+                smsSender::sendSms($customer->contact_number, $message);
+            }
+
             //STORE CAR
             RentCar::create($this->rentData($request->toArray(), $customer->id));
             
@@ -54,7 +61,7 @@ class RentCarsController extends Controller
         //if the code we are trying to execute has no errors
         //then data will be commit to the database
         DB::commit();
-
+       
         return redirect()->route('rent.list')->with('message', 'Successfully Added');
     }
     public function updateReservation(Request $request, $id)
@@ -66,7 +73,6 @@ class RentCarsController extends Controller
         try {
 
             Customer::where('id', $rent->customer_id)->update($this->CustomerData($request->toArray())); // Update customer details
-
 
             RentCar::where('id', $rent->id)->update($this->rentData($request->toArray(), $rent->customer_id)); //Update rent details
 
@@ -86,10 +92,12 @@ class RentCarsController extends Controller
     {
         $rent = RentCar::findOrFail($id);
         $cars = Car::select(['id', 'model', 'no_of_setters'])->orderBy('created_at', 'desc')->get();
+        $destinations = Destination::all();
         $rentStatus = RentStatus::all();
 
         return view('pages.rent-cars.show-reserve-form')
         ->with('cars', $cars)
+        ->with('destinations', $destinations)
         ->with('rentStatus', $rentStatus)
         ->with('rent', $rent);
     }
@@ -103,6 +111,7 @@ class RentCarsController extends Controller
 
             'customer_id' => $customer_id,
             'car_id' => $data['car_id'],
+            'destination_id' => $data['destination_id'],
             'pick_up_address' => $data['pick_up_address'],
             'pick_up_date' => date_format($pickUp, 'Y-m-d'),
             'drop_off_date' => date_format($dropOff, 'Y-m-d'),
@@ -123,7 +132,7 @@ class RentCarsController extends Controller
 
     public function showRentData()
     {
-        $rentals = RentCar::with(['customer', 'car', 'status'])->orderBy('created_at', 'desc');
+        $rentals = RentCar::with(['customer', 'car', 'destination', 'status'])->orderBy('created_at', 'desc');
 
         return datatables()->eloquent($rentals)
 
@@ -139,7 +148,11 @@ class RentCarsController extends Controller
 
             return $rent->car->model;
 
-        })->addColumn('status', function(RentCar $rent){
+        })->addColumn('destination', function(RentCar $rent){
+
+            return $rent->destination->destination;
+        })
+        ->addColumn('status', function(RentCar $rent){
 
             return "<span class='{$rent->status->class}'>{$rent->status->status}</span>";
 

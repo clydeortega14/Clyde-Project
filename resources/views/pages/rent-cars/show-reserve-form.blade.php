@@ -13,7 +13,7 @@
             @csrf
 
             <div class="box-body">
-
+              
               {{-- CUSTOMER DETAILS --}}
               <div class="row">
                 <div class="col-sm-6">
@@ -85,7 +85,7 @@
               
               {{-- FOR RESERVATION --}}
               <div class="row">
-                <div class="col-sm-4">
+                <div class="col-sm-6">
                   <div class="form-group @error('car_id') has-error @enderror">
                       <label for="car_id">{{ __('Select Car') }} </label>
                       <select type="text" class="form-control" id="car_id" name="car_id" required>
@@ -104,7 +104,26 @@
                   </div>
                 </div>
 
-                <div class="col-sm-4">
+                <div class="col-sm-6">
+                  <div class="form-group @error('destination_id') has-error @enderror">
+                      <label for="destination_id">{{ __('Select Destination') }} </label>
+                      <select type="text" class="form-control" id="destination_id" name="destination_id" required>
+                      <option>N/A</option>
+                        @foreach($destinations as $destination)
+                          <option value="{{ $destination->id }}" {{ isset($rent) && $destination->id == $rent->destination_id ? 'selected' : '' }}>{{ $destination->destination }} ( {{ number_format($destination->rate, 2) }} )</option>
+                        @endforeach
+                      </select>
+                  
+                      @error('destination_id')
+                          <span class="help-block">
+                              {{ $message }}
+                          </span>
+                      @enderror
+
+                  </div>
+                </div>
+
+                <div class="col-sm-6">
                   <div class="form-group @error('pick_up_date') has-error @enderror">
                     <label>{{ __('Pick up date') }}</label>
 
@@ -124,7 +143,7 @@
                   </div>
                 </div>
 
-                <div class="col-sm-4">
+                <div class="col-sm-6">
                   <div class="form-group @error('drop_off_date') has-error @enderror">
                       <label>{{ __('Drop off date') }}</label>
 
@@ -177,6 +196,7 @@
                   </div>
                 @endif
               </div>
+
             </div>
 
             <div class="box-footer">

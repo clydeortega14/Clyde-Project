@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class RentCar extends Model
 {
     protected $table = 'rent_cars';
-    protected $fillable = ['customer_id', 'car_id', 'pick_up_address', 'pick_up_date', 'drop_off_date', 'status_id'];
+    protected $fillable = ['customer_id', 'car_id', 'destination_id', 'pick_up_address', 'pick_up_date', 'drop_off_date', 'status_id'];
 
     public function customer()
     {
@@ -20,5 +20,10 @@ class RentCar extends Model
     public function status()
     {
     	return $this->hasOne('App\RentStatus', 'id', 'status_id');
+    }
+    public function destination()
+    {
+
+        return $this->hasOne('App\Destination', 'id', 'destination_id');
     }
 }

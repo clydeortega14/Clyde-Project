@@ -35,17 +35,40 @@
 
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-users"></i> <span>Masters</span>
+            <i class="fa fa-group"></i> <span>Access Rights</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
             <ul class="treeview-menu">
               <li>
                 <a href="{{ route('users') }}">
-                  <i class="fa fa-users"></i> <span>Users</span>
+                   <span>Users</span>
                 </a>
               </li>
 
+              <li>
+                <a href="#">
+                   <span>Roles</span>
+                </a>
+              </li>
+
+              <li>
+                <a href="#">
+                  <span>Permissions</span>
+                </a>
+              </li>
+            </ul>
+          </a>
+        </li>
+
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-gears"></i> <span>Set up</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+            <ul class="treeview-menu">
+              
               <li>
                 <a href="{{ route('cars') }}">
                   <i class="fa fa-car"></i> <span>Cars</span>
@@ -69,6 +92,18 @@
                   <i class="fa fa-ship"></i> <span>Tour Packages</span>
                 </a>
               </li>
+
+              <li>
+                <a href="{{ route('destinations.index') }}">
+                  <i class="fa fa-ship"></i> <span>Destinations</span>
+                </a>
+              </li>
+
+              <li>
+                <a href="{{ route('penalties.index') }}">
+                  <i class="fa fa-ship"></i> <span>Penalties</span>
+                </a>
+              </li>
             </ul>
           </a>
         </li>
@@ -83,7 +118,13 @@
             <ul class="treeview-menu">
               <li>
                 <a href="{{ route('rent.list') }}">
-                    <i class="fa fa-car"> </i><span> Rent a car </span>
+                    <i class="fa fa-car"> </i><span> Reservations </span>
+                </a>
+              </li>
+
+               <li>
+                <a href="{{ route('payments.index') }}">
+                    <i class="fa fa-credit-card"> </i><span> Payments </span>
                 </a>
               </li>
             </ul>
@@ -92,4 +133,4 @@
       </ul>
     </section>
     <!-- /.sidebar -->
-  </aside>
+</aside>
