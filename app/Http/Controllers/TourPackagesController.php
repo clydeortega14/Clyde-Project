@@ -41,6 +41,13 @@ class TourPackagesController extends Controller
         return redirect()->route('tour-packages.index')->with('message', 'New tour package has been added');
     }
 
+    public function show($id)
+    {
+        $package = TourPackage::findOrFail($id);
+
+        return view('pages.tourpackages.create')->with('package', $package);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -50,7 +57,10 @@ class TourPackagesController extends Controller
     public function edit($id)
     {
         $tour = TourPackage::findOrFail($id);
-        return view('pages.tourpackages.edit')->with('tour', $tour);
+        $tourPackages = TourPackage::orderBy('created_at', 'desc')->get();
+        return view('pages.tourpackages.index')
+        ->with('tourPackages', $tourPackages)
+        ->with('tour', $tour);
     }
 
     /**
@@ -70,8 +80,9 @@ class TourPackagesController extends Controller
 
         return [
 
+            'title' => $data['title'],
             'description' => $data['description'],
-            'rate' => $data['rate']
+            'available' => isset($data['available']) ? $data['available'] : 1
         ];
     }
 

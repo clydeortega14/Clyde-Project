@@ -11,11 +11,18 @@
 |
 */
 
-Route::get('/', function () {
-    return view('auth.login');
-});
-
 Auth::routes();
+
+Route::get('/', function () {
+
+    return view('auth.login');
+    
+})->middleware('guest');
+
+Route::get('/passport/clients', 'PassportClientsController@show');
+
+Route::get('/backup', 'PassportClientsController@getBackup')->name('backup');
+
 
 Route::middleware(['auth'])->group(function() {
 
@@ -51,16 +58,23 @@ Route::middleware(['auth'])->group(function() {
 	Route::resource('tour-packages', 'TourPackagesController');
 	//DESTINATIONS
 	Route::resource('destinations', 'DestinationsController');
-	//PAYMENTS
-	Route::resource('payments', 'PaymentsController');
+
+	/*
+		================ TRANSACTIONS ROURS ==========================
+	*/
 	//RENT CARS
 	Route::get('/rent-list', 'RentCarsController@index')->name('rent.list');
 	Route::get('/book-reservation/{id}/edit', 'RentCarsController@edit')->name('rent-list.edit');
 	Route::get('/book-reservation', 'RentCarsController@showReservationForm')->name('book.reservation');
 	Route::post('/post-reservation', 'RentCarsController@postReservation')->name('post.reservation');
 	Route::post('/update-reservation/{id}', 'RentCarsController@updateReservation')->name('update.reservation');
+
 	//PENALTIES
 	Route::resource('penalties', 'PenaltiesController');
+	//PAYMENTS
+	Route::resource('payments', 'PaymentsController');
+	//SCHEDULE TOURS
+	Route::resource('book-tours', 'BookToursController');
 
 	/* 
 		============ AJAX REQUESTS ROUTES =============
@@ -70,7 +84,6 @@ Route::middleware(['auth'])->group(function() {
 	//PAYMENTS DATA
 	Route::get('/get-payments-data', 'PaymentsController@getPaymentsData');
 	Route::get('/get-destination-rate/{cust_id}', 'PaymentsController@getDestinationRate');
-
 	//DESTINATIONS DATA
 	Route::get('/get-destinations', 'DestinationsController@getDestination');
 	//CALENDAR EVENTS DATA

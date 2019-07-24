@@ -14,7 +14,7 @@ class AddTotalPaymentAmountToPaymentsTable extends Migration
     public function up()
     {
         Schema::table('payments', function (Blueprint $table) {
-            $table->float('total_payment_amt', 8, 2)->after('user_id');
+            $table->float('payment_amount', 8, 2)->after('user_id');
         });
     }
 
@@ -26,7 +26,7 @@ class AddTotalPaymentAmountToPaymentsTable extends Migration
     public function down()
     {
         Schema::table('payments', function (Blueprint $table) {
-            $table->dropColumn('total_payment_amt');
+            $table->dropColumn('payment_amount');
         });
     }
 }

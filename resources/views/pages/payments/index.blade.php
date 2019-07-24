@@ -73,8 +73,8 @@
 
                     { data : 'id'},
                     { data : 'customer', name : 'customer.name'},
-                    { data : 'total_payment_amt'},
-                    { data : 'amount_paid'},
+                    { data : 'payment_amount'},
+                    { data : 'partial_pay'},
                     { data : 'balance'},
                     { data : 'status'},
                     { data : 'action'},

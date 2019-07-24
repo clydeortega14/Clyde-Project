@@ -3,11 +3,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Notification Server</title>
+    <title>Login</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -18,7 +17,6 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ asset('/DataTables/datatables.css') }} ">
     <link rel="stylesheet" type="text/css" href="{{ asset('/DataTables/DataTables-1.10.16/css/dataTables.bootstrap4.css') }} ">
-    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('/DataTables/DataTables-1.10.16/css/jquery.dataTables.css') }} "> --}}
 
 </head>
 <body>

@@ -15,8 +15,9 @@ class CreateTourPackagesTable extends Migration
     {
         Schema::create('tour_packages', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('title');
             $table->text('description');
-            $table->double('rate', 8, 2);
+            $table->boolean('available');
             $table->timestamps();
         });
     }

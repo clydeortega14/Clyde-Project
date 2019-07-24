@@ -8,7 +8,7 @@ class Payments extends Model
 {
     protected $table = 'payments';
 
-    protected $fillable = ['customer_id', 'user_id', 'total_payment_amt', 'amount_paid', 'balance', 'status'];
+    protected $fillable = ['customer_id', 'user_id', 'payment_amount', 'partial_pay', 'balance', 'total_penalties', 'total_payment', 'status'];
 
     public function customer()
     {

@@ -24,6 +24,32 @@ Vue.component('sidebar-component', require('./components/SidebarComponent.vue').
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('car-component', require('./components/CarComponent.vue').default);
 
+/*
+ * Vue component passport clients
+*/
+Vue.component(
+    'passport-clients',
+    require('./components/passport/Clients.vue').default
+);
+
+
+/*
+ *	Vue component passport authorzed clients
+*/
+Vue.component(
+    'passport-authorized-clients',
+    require('./components/passport/AuthorizedClients.vue').default
+);
+
+/*
+ * Vue component personal access token
+*/
+
+Vue.component(
+    'passport-personal-access-tokens',
+    require('./components/passport/PersonalAccessTokens.vue').default
+);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

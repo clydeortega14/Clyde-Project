@@ -51,4 +51,11 @@ return [
         'sms_from' => '15556666666'
     ],
 
+    'passport' => [
+
+        'end_point' => env('END_POINT'),
+        'client_id' => env('CLIENT_ID'),
+        'client_secret' => env('CLIENT_SECRET'),
+    ],
+
 ];

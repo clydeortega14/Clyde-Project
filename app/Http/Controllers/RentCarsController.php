@@ -38,13 +38,13 @@ class RentCarsController extends Controller
             // STORE CUSTOMER
             $customer = Customer::create($this->CustomerData($request->toArray()));
 
-            if($customer){
+            // if($customer){
 
-                $message = 'Good day'.' '.$customer->name.' '.'your reservation trip to boracay is now available ';
+            //     $message = 'Good day'.' '.$customer->name.' '.'your reservation trip to boracay is now available ';
 
-                //SEND SMS TO CLIENT
-                smsSender::sendSms($customer->contact_number, $message);
-            }
+            //     //SEND SMS NOTIFICATION
+            //     // smsSender::sendSms($customer->contact_number, $message);
+            // }
 
             //STORE CAR
             RentCar::create($this->rentData($request->toArray(), $customer->id));
@@ -132,7 +132,7 @@ class RentCarsController extends Controller
 
     public function showRentData()
     {
-        $rentals = RentCar::with(['customer', 'car', 'destination', 'status'])->orderBy('created_at', 'desc');
+        $rentals = RentCar::with(['customer', 'status'])->orderBy('created_at', 'desc');
 
         return datatables()->eloquent($rentals)
 
@@ -143,14 +143,6 @@ class RentCarsController extends Controller
         })->addColumn('contact', function(RentCar $rent){
 
             return $rent->customer->contact_number;
-        })
-        ->addColumn('car', function(RentCar $rent){
-
-            return $rent->car->model;
-
-        })->addColumn('destination', function(RentCar $rent){
-
-            return $rent->destination->destination;
         })
         ->addColumn('status', function(RentCar $rent){
 

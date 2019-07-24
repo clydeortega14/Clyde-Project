@@ -8,6 +8,7 @@ use App\Payments;
 use App\RentCar;
 use App\Car;
 use App\Penalty;
+use App\CustomerPenalties;
 use DataTables;
 use DB;
 
@@ -30,9 +31,12 @@ class PaymentsController extends Controller
      */
     public function create()
     {
-        $rents = RentCar::whereNotIn('status_id', [3, 5])->get();
+        $rents = RentCar::where('status_id', 1)->get();
+        $penalties = Penalty::all();
 
-        return view('pages.payments.create')->with('rents', $rents);
+        return view('pages.payments.create')
+            ->with('penalties', $penalties)
+            ->with('rents', $rents);
     }
 
     /**
@@ -48,13 +52,12 @@ class PaymentsController extends Controller
 
         try {
             
-            $payment = Payments::create($this->paymentsData($request->toArray(), auth()->user()->id));
+            $payment = Payments::create($this->paymentsData($request->toArray(), auth()->user()->id, 'partial'));
 
             if($payment){
 
                 //UPDATE RESERVATION STATUS
                 RentCar::where('customer_id', $payment->customer_id)->update(['status_id' => 2]);
-
                 //UPDATE CAR AVAILABILITY
                 Car::where('id', $payment->car_id)->update(['available' => false]);
             }
@@ -109,7 +112,27 @@ class PaymentsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $customer_pen = DB::table('cust_penalties')->where('cust_id', $request->customer_id)->get();
+
+        if(count($customer_pen) > 0){ // CHECK IF CUSTOMER HAS EXISTING PENALTIES
+
+            //DELETE IF THE'RES EXIST
+            DB::table('cust_penalties')->where('cust_id', $request->customer_id)->delete();
+        }
+
+        if($request->has('penalties')){ // CHECK IF REQUEST HAS PENALTIES
+
+            foreach($request->penalties as $penalty){
+
+                //INSERT IN CUSTOMER PENALTIES TABLE
+                DB::table('cust_penalties')->insert(['cust_id' => $request->customer_id, 'penalty_id' => $penalty]);
+            }
+        }
+
+        //UPDATE PAYMENTS
+        Payments::where('id', $id)->update($this->paymentsData($request->toArray(), auth()->user()->id, 'paid'));
+
+        return redirect()->route('payments.index')->with('message', 'Customer successfully paid');
     }
 
     /**
@@ -123,16 +146,18 @@ class PaymentsController extends Controller
         //
     }
 
-    protected function paymentsData(Array $data, $userid)
+    protected function paymentsData(Array $data, $userid, $status)
     {
         return [
 
             'customer_id' => $data['customer_id'],
             'user_id' => $userid,
-            'total_payment_amt' => $data['pay_amount'],
-            'amount_paid' => $data['amount_paid'],
+            'payment_amount' => $data['pay_amount'],
+            'partial_pay' => $data['amount_paid'],
             'balance' => $data['balance'],
-            'status' => 'partial'
+            'total_penalties' => isset($data['total_penalties']) ? $data['total_penalties'] : 0.00,
+            'total_payment' => isset($data['total_pay']) ? $data['total_pay'] : 0.00,
+            'status' => $status
         ];
 
     }
@@ -146,13 +171,13 @@ class PaymentsController extends Controller
 
             return $payment->customer->name;
 
-        })->editColumn('total_payment_amt', function(Payments $payment){
+        })->editColumn('payment_amount', function(Payments $payment){
 
-            return number_format($payment->total_payment_amt, 2);
+            return number_format($payment->payment_amount, 2);
 
-        })->editColumn('amount_paid', function(Payments $payment){
+        })->editColumn('partial_pay', function(Payments $payment){
 
-            return number_format($payment->amount_paid, 2);
+            return number_format($payment->partial_pay, 2);
 
         })->editColumn('balance', function(Payments $payment){
 

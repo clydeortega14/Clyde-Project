@@ -127,6 +127,13 @@
                     <i class="fa fa-credit-card"> </i><span> Payments </span>
                 </a>
               </li>
+
+              <li>
+                <a href="{{ route('book-tours.index') }}">
+                    <i class="fa fa-credit-card"> </i><span> Schedule tour </span>
+                </a>
+              </li>
+
             </ul>
           </a>
         </li>

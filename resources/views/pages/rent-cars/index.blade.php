@@ -27,13 +27,8 @@
             <thead>
                 <tr>
                   <th>ID</th>
-                  <th>Name</th>
+                  <th>Fullname</th>
                   <th>Contact Number</th>
-                  <th>Selected Car</th>
-                  <th>Destination</th>
-                  <th>Pick Up address</th>
-                  <th>Pick up date</th>
-                  <th>Drop off date</th>
                   <th>Status</th>
                   <th>Action</th>
                 </tr>
@@ -76,11 +71,6 @@
 		      		{data : 'id'},
 		      		{data : 'customer', name : 'customer.name'},
 		      		{data : 'contact', name : 'customer.contact_number'},
-              {data : 'car', name : 'car.model'},
-		      		{data : 'destination', name : 'destination.destination'},
-		      		{data : 'pick_up_address', name : 'pick_up_address'},
-		      		{data : 'pick_up_date', name: 'pick_up_date'},
-		      		{data : 'drop_off_date', name : 'drop_off_date'},
 		      		{data : 'status', name : 'status.status'},
 		      		{data : 'action', name : 'action'},
 		      	]

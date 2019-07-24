@@ -18,8 +18,8 @@
               <div class="row">
                 <div class="col-sm-6">
                   <div class="form-group @error('name') has-error @enderror">
-                        <label for="name">{{ __('Name') }} </label>
-                        <input type="text" class="form-control" id="name" name="name" value="{{ isset($rent) ? $rent->customer->name : old('name') }}" placeholder="Enter Name" required>
+                        <label for="name">{{ __('Fullname') }} </label>
+                        <input type="text" class="form-control" id="name" name="name" value="{{ isset($rent) ? $rent->customer->name : old('name') }}" placeholder="Enter Fullname" required>
                     
                         @error('name')
                             <span class="help-block">
@@ -89,7 +89,7 @@
                   <div class="form-group @error('car_id') has-error @enderror">
                       <label for="car_id">{{ __('Select Car') }} </label>
                       <select type="text" class="form-control" id="car_id" name="car_id" required>
-                      <option>N/A</option>
+                      <option value="">N/A</option>
                         @foreach($cars as $car)
                           <option value="{{ $car->id }}" {{ isset($rent) && $car->id == $rent->car_id ? 'selected' : '' }}>{{ $car->model }} ( {{ $car->no_of_setters }} )</option>
                         @endforeach
@@ -108,7 +108,7 @@
                   <div class="form-group @error('destination_id') has-error @enderror">
                       <label for="destination_id">{{ __('Select Destination') }} </label>
                       <select type="text" class="form-control" id="destination_id" name="destination_id" required>
-                      <option>N/A</option>
+                      <option value="">N/A</option>
                         @foreach($destinations as $destination)
                           <option value="{{ $destination->id }}" {{ isset($rent) && $destination->id == $rent->destination_id ? 'selected' : '' }}>{{ $destination->destination }} ( {{ number_format($destination->rate, 2) }} )</option>
                         @endforeach

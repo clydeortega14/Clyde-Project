@@ -17,6 +17,9 @@
   <link rel="stylesheet" href="/AdminLTE/bower_components/jvectormap/jquery-jvectormap.css">
   <!-- Date Picker -->
   <link rel="stylesheet" href="/AdminLTE/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+
+    <!-- iCheck for checkboxes and radio inputs -->
+  <link rel="stylesheet" href="/AdminLTE/plugins/iCheck/all.css">
   <!-- Daterange picker -->
   <link rel="stylesheet" href="/AdminLTE/bower_components/bootstrap-daterangepicker/daterangepicker.css">
 
@@ -36,3 +39,5 @@
 
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+  @yield('custom_css')
