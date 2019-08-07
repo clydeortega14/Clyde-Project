@@ -271,7 +271,7 @@
                 axios.get('/oauth/clients')
                         .then(response => {
                             this.clients = response.data;
-                        });
+                        })
             },
 
             /**

@@ -12,7 +12,7 @@ class UserApiController extends Controller
 {
     public function index()
     {
-    	return UserResource::collection(User::paginate());
+    	return UserResource::collection(User::paginate(5));
     }
     public function store(Request $request)
     {

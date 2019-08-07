@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\User;
+use App\Role;
 use Illuminate\Support\Facades\Hash;
 
 class UsersSeeder extends Seeder
@@ -14,37 +15,39 @@ class UsersSeeder extends Seeder
     public function run()
     {
 
-        $users = [
+        $this->createUsers();
+    }
+
+
+    protected function arrUsers()
+    {
+        return [
 
             [
-                'name' => 'Admin Panel',
-                'email' =>  'admin@example.com',
-                'username' => 'admin',
-                'password' => Hash::make('admin123'),
-                'role_id' => 1,
-                'active' => true
+                'name' => 'superadmin', 
+                'email' => 'superadmin@example.com', 
+                'username' => 'superadmin', 
+                'password' => Hash::make('superadmin123'), 
+                'status' => true
             ],
-            [
-                'name' => 'Staff',
-                'email' => 'Staff@example.com',
-                'username' => 'staff',
-                'password' => Hash::make('staff123'),
-                'role_id' => 2,
-                'active' => true,
-            ]
+
         ];
+    }
 
-        foreach($users as $user){
+    protected function createUsers()
+    {
+        foreach($this->arrUsers() as $user){
 
-            User::create([
+            $some_user = User::create([
+
                 'name' => $user['name'],
-                'email' =>  $user['email'],
+                'email' => $user['email'],
                 'username' => $user['username'],
                 'password' => $user['password'],
-                'role_id' => $user['role_id'],
-                'active' => $user['active']
+                'status' => $user['status']
             ]);
         }
-
     }
+
+
 }

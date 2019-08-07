@@ -14,14 +14,15 @@ class roleSeeder extends Seeder
     {
         $roles = [
 
-        	['display_name' => 'Admin', 'description' => 'Has access to all'],
-        	['display_name' => 'Staff', 'description' => 'Limited Access'],
+        	['name' => 'superadmin', 'display_name' => 'Superadmin', 'description' => 'Has access to all'],
+        	
         ];
 
         foreach($roles as $role){
 
-        	Role::create([
+        	$add_role = Role::create([
 
+                'name' => $role['name'],
         		'display_name' => $role['display_name'], 
         		'description' => $role['description']
 

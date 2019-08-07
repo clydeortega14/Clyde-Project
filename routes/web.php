@@ -23,9 +23,7 @@ Route::get('/passport/clients', 'PassportClientsController@show');
 
 Route::get('/backup', 'PassportClientsController@getBackup')->name('backup');
 
-
 Route::middleware(['auth'])->group(function() {
-
 
 	Route::get('/home', 'HomeController@index')->name('home');
 

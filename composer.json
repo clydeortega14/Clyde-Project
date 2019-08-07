@@ -17,7 +17,8 @@
         "nao-pon/flysystem-google-drive": "1.1",
         "nexmo/client": "^1.8",
         "spatie/laravel-backup": "^6.3",
-        "yajra/laravel-datatables-oracle": "~9.0"
+        "yajra/laravel-datatables-oracle": "~9.0",
+        "zizaco/entrust": "5.2.x-dev"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

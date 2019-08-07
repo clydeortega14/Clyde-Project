@@ -16,7 +16,7 @@ class AddDestinationIdToRenCarsTable extends Migration
         Schema::table('rent_cars', function (Blueprint $table) {
             $table->unsignedBigInteger('destination_id')->after('car_id');
 
-            $table->foreign('destination_id')->references('id')->on('destinations');
+            $table->foreign('destination_id')->references('id')->on('destinations')->onDelete('cascade')->onUpdate('cascade');
 
         });
     }
@@ -29,7 +29,6 @@ class AddDestinationIdToRenCarsTable extends Migration
     public function down()
     {
         Schema::table('rent_cars', function (Blueprint $table) {
-            $table->dropColumn('destination_id');
 
             $table->dropForeign('rent_cars_destination_id_foreign');
         });

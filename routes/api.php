@@ -20,16 +20,6 @@ Route::middleware('auth:api')->group(function () {
     	return $request->user();
 	});
 
-	Route::get('/users', 'API\UserApiController@index');
-
-	Route::post('/users/store', 'API\UserApiController@store');
-
-	Route::get('/user/{id}', 'API\UserApiController@show');
-
-	Route::put('/user/update/{id}', 'API\UserApiController@update');
-
-	Route::delete('/user/delete/{id}', 'API\UserApiController@destroy');
-
 	//TODOS
 	Route::get('/todos', 'API\TodoController@index');
 
@@ -44,3 +34,13 @@ Route::middleware('auth:api')->group(function () {
 });
 
 Route::post('/login', 'ClientLoginController@login');
+
+Route::get('/users', 'API\UserApiController@index');
+
+Route::post('/users/store', 'API\UserApiController@store');
+
+Route::get('/user/{id}', 'API\UserApiController@show');
+
+Route::put('/user/update/{id}', 'API\UserApiController@update');
+
+Route::delete('/user/delete/{id}', 'API\UserApiController@destroy');
